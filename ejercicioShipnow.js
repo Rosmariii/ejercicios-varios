@@ -125,7 +125,8 @@ class File {
         console.log(`Fecha de creación: ${file.createdAt}`);
         console.log(`Tamaño: ${file.getSize()} bytes`);
 
-        console.log(`Contenido: ${file.content}`);
+        console.log(`Contenido:`);
+        console.log(file.content);
 
       } else {
         console.log(`El archivo '${name}' no existe.`);
@@ -219,8 +220,10 @@ class File {
     } 
     
     if (action === 'create_file' && checkUser()) {
-        const [name, contentParts] = args;
-        fileSystem.createFile(name, contentParts);
+        const [name, ...contentParts] = args;
+        let content = contentParts.join(' ');
+        content = content.substring(1, content.length - 1);
+        fileSystem.createFile(name, content);
         return
     }
     
